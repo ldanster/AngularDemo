@@ -4,36 +4,43 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AngularDemo.Models;
 
 namespace AngularDemo.Controllers
 {
     public class TodoController : ApiController
     {
-        // GET api/todo
-        public IEnumerable<string> Get()
+        private static List<Item> TodoList { get; set; }
+
+        static TodoController()
         {
-            return new string[] { "value1", "value2" };
+            TodoList = new List<Item> {new Item {Id = 1, Name = "Demo Item", IsComplete = false}};
+        }
+
+        // GET api/todo
+        public IEnumerable<Item> Get()
+        {
+            return TodoList;
         }
 
         // GET api/todo/5
-        public string Get(int id)
+        public Item Get(int id)
         {
-            return "value";
+            return TodoList.Find(o => o.Id == id);
         }
 
         // POST api/todo
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Item item)
         {
-        }
-
-        // PUT api/todo/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/todo/5
-        public void Delete(int id)
-        {
+            if (item.Id == 0)
+            {
+                item.Id = TodoList.Count + 1;
+                TodoList.Add(item);
+            }
+            else
+            {
+                TodoList.Find(o => o.Id == item.Id).IsComplete = item.IsComplete;
+            }
         }
     }
 }
