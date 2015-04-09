@@ -7,9 +7,16 @@
 </head>
 <body ng-controller="todoController">
     
-    {{greeting}}
+    <div>
+        <input type="text" ng-model="todoItem.Name"/>
+        <button ng-click="addItem()">Add New Item</button>
+    </div>
     
-    <button value="Click Me" ng-click="addItem()"></button>
+    <div ng-repeat="item in todoItems">
+        {{item.Name}}
+    </div>
+
+    
 
 </body>
 </html>

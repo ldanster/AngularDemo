@@ -3,8 +3,16 @@
 angular.module("todoApp", [])
 .controller("todoController", function($scope, $http) {
 
+    $scope.todoItem = {
+        Name: "Lebohang",
+        IsComplete: "False"
+    }
+
     $scope.getAllItems = function() {
-        
+        $http.get("/api/todo")
+        .success(function(data) {
+            $scope.todoItems = data;
+        });
     }
 
     $scope.getItem = function(id) {
@@ -19,4 +27,5 @@ angular.module("todoApp", [])
         
     }
 
+    $scope.getAllItems();
 });
