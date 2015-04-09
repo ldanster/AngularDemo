@@ -12,6 +12,16 @@ angular.module("todoApp", [])
         }
     }
 
+    var postItem = function(item) {
+        $http.post("/api/todo", item)
+        .success(function (data) {
+            $scope.todoItems = data;
+        })
+        .error(function (data) {
+            console.log(data);
+        });
+    }
+
     $scope.getAllItems = function() {
         $http.get("/api/todo")
         .success(function(data) {
@@ -23,20 +33,19 @@ angular.module("todoApp", [])
         
     }
 
-    $scope.addNewItem = function() {
-        $http.post("/api/todo", $scope.todoItem)
-        .success(function (data) {
-            $scope.todoItems = data;
-        })
-        .error(function (data) {
-            console.log(data);
-        });
+    $scope.addNewItem = function () {
+        if ($scope.todoItem.Name == "")
+            return;
+
+        postItem($scope.todoItem);
         clearTodoItem();
     }
 
-    $scope.UpdateItem = function() {
-        
+    $scope.UpdateItem = function(item) {
+        item.IsComplete = true;
+        postItem(item);
     }
 
     $scope.getAllItems();
+    clearTodoItem();
 });
