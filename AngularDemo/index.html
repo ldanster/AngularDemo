@@ -9,11 +9,11 @@
     
     <div>
         <input type="text" ng-model="todoItem.Name"/>
-        <button ng-click="addItem()">Add New Item</button>
+        <button ng-click="addNewItem()">Add New Item</button>
     </div>
     
     <div ng-repeat="item in todoItems">
-        {{item.Name}}
+        {{item.Id}}-{{item.Name}}
     </div>
 
     

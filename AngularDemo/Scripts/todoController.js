@@ -3,9 +3,13 @@
 angular.module("todoApp", [])
 .controller("todoController", function($scope, $http) {
 
-    $scope.todoItem = {
-        Name: "Lebohang",
-        IsComplete: "False"
+    
+
+    var clearTodoItem = function() {
+        $scope.todoItem = {
+            Name: "",
+            IsComplete: "False"
+        }
     }
 
     $scope.getAllItems = function() {
@@ -20,7 +24,14 @@ angular.module("todoApp", [])
     }
 
     $scope.addNewItem = function() {
-        
+        $http.post("/api/todo", $scope.todoItem)
+        .success(function (data) {
+            $scope.todoItems = data;
+        })
+        .error(function (data) {
+            console.log(data);
+        });
+        clearTodoItem();
     }
 
     $scope.UpdateItem = function() {

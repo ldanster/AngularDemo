@@ -30,7 +30,7 @@ namespace AngularDemo.Controllers
         }
 
         // POST api/todo
-        public void Post([FromBody]Item item)
+        public IEnumerable<Item> Post([FromBody]Item item)
         {
             if (item.Id == 0)
             {
@@ -41,6 +41,8 @@ namespace AngularDemo.Controllers
             {
                 TodoList.Find(o => o.Id == item.Id).IsComplete = item.IsComplete;
             }
+
+            return TodoList;
         }
     }
 }
