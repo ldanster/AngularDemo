@@ -27,8 +27,10 @@ angular.module("todoApp", [])
         }
     }
 
+    var apiUrl = "/api/todo";
+
     var postItem = function (item) {
-        $http.post("/api/todo", item)
+        $http.post(apiUrl, item)
         .success(function (data) {
             $scope.todoItems = data;
         })
@@ -38,7 +40,7 @@ angular.module("todoApp", [])
     }
 
     var getAllItems = function () {
-        $http.get("/api/todo")
+        $http.get(apiUrl)
         .success(function (data) {
             $scope.todoItems = data;
         });
